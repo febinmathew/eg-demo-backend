@@ -10,6 +10,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { SignInDto } from './dto/SignIn.dto';
+import { instanceToPlain } from 'class-transformer';
 @Injectable()
 export class AuthService {
   constructor(
@@ -43,7 +44,8 @@ export class AuthService {
     } catch (error) {
       throw new ConflictException(error.message);
     }
+    const userDto = instanceToPlain(user);
 
-    return user;
+    return userDto;
   }
 }

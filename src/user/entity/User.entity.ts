@@ -4,6 +4,7 @@ import { Column, Entity, Index, ObjectIdColumn, PrimaryColumn } from 'typeorm';
 @Entity()
 export default class User {
   @ObjectIdColumn()
+  @Exclude({ toPlainOnly: true })
   id: string;
 
   @Column()
