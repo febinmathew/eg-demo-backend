@@ -1,4 +1,11 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  MaxLength,
+  MinLength,
+  Validate,
+} from 'class-validator';
+import PasswordConstraint from 'common/validators/PasswordConstraint';
 
 export default class CreateUserDto {
   @IsNotEmpty()
@@ -7,6 +14,14 @@ export default class CreateUserDto {
   @IsEmail()
   email: string;
 
-  @IsNotEmpty()
+  @MinLength(8)
+  @MaxLength(64)
+  @Validate(PasswordConstraint, [
+    {
+      minLetters: 1,
+      minNumbers: 1,
+      minSpecialCharacters: 1,
+    },
+  ])
   password: string;
 }
