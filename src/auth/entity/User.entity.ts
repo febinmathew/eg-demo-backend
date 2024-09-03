@@ -1,4 +1,4 @@
-import { Column, Entity, ObjectIdColumn, PrimaryColumn } from 'typeorm';
+import { Column, Entity, Index, ObjectIdColumn, PrimaryColumn } from 'typeorm';
 
 @Entity()
 export default class User {
@@ -9,6 +9,7 @@ export default class User {
   name: string;
 
   @Column()
+  @Index({ unique: true })
   email: string;
 
   @Column()
