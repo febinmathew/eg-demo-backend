@@ -4,9 +4,8 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import CreateUserDto from './dto/CreateUser.dto';
-import { ConfigService } from '@nestjs/config';
 import { Repository } from 'typeorm';
-import User from './entity/User.entity';
+import User from '../user/entity/User.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
