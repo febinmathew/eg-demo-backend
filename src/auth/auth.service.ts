@@ -1,4 +1,8 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import CreateUserDto from './dto/CreateUser.dto';
 import { ConfigService } from '@nestjs/config';
 import { Repository } from 'typeorm';
@@ -22,6 +26,8 @@ export class AuthService {
       return {
         access_token: this.jwtService.sign(payload),
       };
+    } else {
+      throw new UnauthorizedException();
     }
   }
 
