@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -8,6 +8,15 @@ import { PassportModule } from '@nestjs/passport';
 @Module({
   imports: [TypeOrmModule.forFeature([User])],
   controllers: [UserController],
-  providers: [UserService],
+  providers: [
+    UserService,
+    {
+      provide: Logger,
+      useFactory: () => {
+        const logger = new Logger('User Module');
+        return logger;
+      },
+    },
+  ],
 })
 export class UserModule {}

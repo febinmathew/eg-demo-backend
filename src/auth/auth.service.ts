@@ -1,6 +1,7 @@
 import {
   ConflictException,
   Injectable,
+  Logger,
   UnauthorizedException,
 } from '@nestjs/common';
 import CreateUserDto from './dto/CreateUser.dto';
@@ -16,6 +17,7 @@ export class AuthService {
   constructor(
     private jwtService: JwtService,
     @InjectRepository(User) private userRepository: Repository<User>,
+    private logger: Logger,
   ) {}
 
   async signIn(signInDto: SignInDto) {
@@ -23,10 +25,12 @@ export class AuthService {
     const user = await this.userRepository.findOneBy({ email });
     if (user && (await bcrypt.compare(password, user.password))) {
       const payload = { email: user.email };
+      this.logger.log(`User authenticated successfully - ${user.name}`);
       return {
         access_token: this.jwtService.sign(payload),
       };
     } else {
+      this.logger.error(`Authentication failed! - ${user ? user.name : email}`);
       throw new UnauthorizedException();
     }
   }
@@ -41,7 +45,9 @@ export class AuthService {
     let user;
     try {
       user = await this.userRepository.save(entity);
+      this.logger.log(`New User registration - ${user.name}`);
     } catch (error) {
+      this.logger.error(`User registration failed - ${error.message}`);
       throw new ConflictException(error.message);
     }
     const userDto = instanceToPlain(user);
