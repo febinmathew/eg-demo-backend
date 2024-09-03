@@ -26,7 +26,6 @@ export default class PasswordConstraint
       validationAllow =
         validationAllow && /[!@#$%^&*(),.?":{}|<>]/.test(text.trim());
     }
-    console.log('args', validationAllow);
     return validationAllow;
   }
 

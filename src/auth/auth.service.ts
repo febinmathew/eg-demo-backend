@@ -6,12 +6,24 @@ import User from './entity/User.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { SignInDto } from './dto/SignIn.dto';
 @Injectable()
 export class AuthService {
   constructor(
     private jwtService: JwtService,
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
+
+  async signIn(signInDto: SignInDto) {
+    const { email, password } = signInDto;
+    const user = await this.userRepository.findOneBy({ email });
+    if (user && (await bcrypt.compare(password, user.password))) {
+      const payload = { email: user.email };
+      return {
+        access_token: this.jwtService.sign(payload),
+      };
+    }
+  }
 
   async createUser(createUserDto: CreateUserDto) {
     const salt = await bcrypt.genSalt();
