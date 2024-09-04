@@ -31,7 +31,7 @@ export class AuthService {
       };
     } else {
       this.logger.error(`Authentication failed! - ${user ? user.name : email}`);
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Invalid credentials!');
     }
   }
 

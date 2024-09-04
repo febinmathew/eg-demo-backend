@@ -8,7 +8,7 @@ import { Throttle } from '@nestjs/throttler';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @Throttle({ default: { limit: 1, ttl: 5000 } })
+  @Throttle({ default: { limit: 2, ttl: 5000 } })
   @Post('login')
   loginUser(@Body() signInDto: SignInDto) {
     return this.authService.signIn(signInDto);
