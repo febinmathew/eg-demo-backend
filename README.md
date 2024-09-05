@@ -30,7 +30,10 @@ $ npm install
 ## Running the app
 
 ```bash
-# development
+# Windows(development)
 $ npm run start
+
+# Unix(development)
+$ npm run start:unix
 ```
 
