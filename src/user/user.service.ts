@@ -10,16 +10,15 @@ export class UserService {
     @InjectRepository(User) private userRepository: Repository<User>,
     private logger: Logger,
   ) {}
-  async getUserData(userEmail: string) {
-    const user = await this.userRepository.findOneBy({
+  async getUserData(userEmail: string): Promise<Record<string, string>> {
+    const user: User = await this.userRepository.findOneBy({
       email: userEmail,
     });
-
-    const userDto = instanceToPlain(user);
-    this.logger.log(`User data fetched - ${userDto.name}`);
     if (!user) {
       throw new NotFoundException();
     }
+    const userDto: Record<string, string> = instanceToPlain(user);
+    this.logger.log(`User data fetched - ${userDto.name}`);
 
     return userDto;
   }

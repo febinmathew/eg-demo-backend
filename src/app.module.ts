@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from '../config/configuration';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import User from './user/entity/User.entity';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
@@ -26,7 +26,7 @@ import { APP_GUARD } from '@nestjs/core';
     }),
     TypeOrmModule.forRootAsync({
       imports: [],
-      useFactory: (configService: ConfigService) => {
+      useFactory: (configService: ConfigService): TypeOrmModuleOptions => {
         return {
           type: 'mongodb',
           host: configService.get<string>('database.host'),

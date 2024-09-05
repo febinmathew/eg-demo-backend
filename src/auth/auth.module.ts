@@ -4,14 +4,14 @@ import { AuthService } from './auth.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import User from '../user/entity/User.entity';
 import { JwtStrategy } from './strategy/jwt.strategy';
-import { JwtModule } from '@nestjs/jwt';
+import { JwtModule, JwtModuleOptions } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
     JwtModule.registerAsync({
-      useFactory: (configService: ConfigService) => {
+      useFactory: (configService: ConfigService): JwtModuleOptions => {
         return {
           secret: configService.get<string>('jwtSecret'),
           signOptions: { expiresIn: '10h' },
@@ -26,7 +26,7 @@ import { ConfigService } from '@nestjs/config';
     JwtStrategy,
     {
       provide: Logger,
-      useFactory: () => {
+      useFactory: (): Logger => {
         const logger = new Logger('Auth Module');
         return logger;
       },

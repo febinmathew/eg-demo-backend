@@ -10,12 +10,14 @@ export class AuthController {
 
   @Throttle({ default: { limit: 2, ttl: 5000 } })
   @Post('login')
-  loginUser(@Body() signInDto: SignInDto) {
+  loginUser(@Body() signInDto: SignInDto): Promise<{ access_token: string }> {
     return this.authService.signIn(signInDto);
   }
 
   @Post('register')
-  registerUser(@Body() createUserDto: CreateUserDto) {
+  registerUser(
+    @Body() createUserDto: CreateUserDto,
+  ): Promise<Record<string, any>> {
     return this.authService.createUser(createUserDto);
   }
 }

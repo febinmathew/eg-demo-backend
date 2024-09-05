@@ -13,7 +13,7 @@ interface PasswordConstraintArg {
 export default class PasswordConstraint
   implements ValidatorConstraintInterface
 {
-  validate(text: string, args: ValidationArguments) {
+  validate(text: string, args: ValidationArguments): boolean {
     const constraints: PasswordConstraintArg = args.constraints[0];
     let validationAllow = true;
     if (constraints.minLetters) {
@@ -29,7 +29,7 @@ export default class PasswordConstraint
     return validationAllow;
   }
 
-  defaultMessage(args: ValidationArguments) {
+  defaultMessage(args: ValidationArguments): string {
     return `The '${args.property}' field must include a letter, a number, and a special character`;
   }
 }

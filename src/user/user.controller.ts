@@ -8,7 +8,9 @@ import { AuthGuard } from '@nestjs/passport';
 export class UserController {
   constructor(private userService: UserService) {}
   @Get('user-data')
-  getUserData(@RequestUser('email') userEmail: string) {
+  getUserData(
+    @RequestUser('email') userEmail: string,
+  ): Promise<Record<string, string>> {
     return this.userService.getUserData(userEmail);
   }
 }
