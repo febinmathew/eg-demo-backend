@@ -33,5 +33,4 @@ $ npm install
 # development
 $ npm run start
 ```
-$ npm run test:e2e
 
