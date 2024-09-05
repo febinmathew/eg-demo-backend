@@ -27,6 +27,11 @@ Backend code developed using the NestJS framework to manage basic authentication
 $ npm install
 ```
 
+### Database setup
+
+The app requires a MongoDB service to be running on port `27017`.
+If you have any configuration settings for the MongoDB service, please update the `.env.development` file.
+
 ## Running the app
 
 ```bash
