@@ -1,10 +1,4 @@
-import {
-  IsString,
-  IsEmail,
-  MinLength,
-  MaxLength,
-  Validate,
-} from 'class-validator';
+import { IsEmail, MinLength, MaxLength, Validate } from 'class-validator';
 import PasswordConstraint from 'common/validators/PasswordConstraint';
 
 export class SignInDto {

@@ -1,6 +1,6 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { classToPlain, instanceToPlain } from 'class-transformer';
+import { instanceToPlain } from 'class-transformer';
 import User from 'src/user/entity/User.entity';
 import { Repository } from 'typeorm';
 
