@@ -10,7 +10,13 @@ describe('AppController', () => {
       controllers: [AppController],
       providers: [AppService],
     }).compile();
+
+    appController = app.get<AppController>(AppController);
   });
 
-  describe('root', () => {});
+  describe('root', () => {
+    it('should return "Hello World!"', () => {
+      expect(appController).toBeDefined();
+    });
+  });
 });
