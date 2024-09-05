@@ -24,7 +24,8 @@ export default class PasswordConstraint
     }
     if (constraints.minSpecialCharacters) {
       validationAllow =
-        validationAllow && /[!@#$%^&*(),.?":{}|<>]/.test(text.trim());
+        validationAllow &&
+        /[!"#$%&'()*+,-.:;<=>?@[\]^_`{|}~]/.test(text.trim());
     }
     return validationAllow;
   }
