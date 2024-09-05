@@ -6,7 +6,18 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors({
-    origin: 'http://localhost:5173',
+    origin: (origin, callback) => {
+      const allowedDomains = ['localhost'];
+      const allowedOrigin =
+        origin == null ||
+        (origin && allowedDomains.includes(new URL(origin).hostname));
+
+      if (allowedOrigin) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
   });
   await app.listen(3000);
 }
